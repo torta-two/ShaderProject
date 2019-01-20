@@ -2,6 +2,8 @@
 {
 	Properties
 	{
+		_MainTex("Main Tex",2D) = "white"{}		
+
 		_Bump("Bump",2D) = "bump" {}
 		_BumpSize("Bump Size",float) = 1
 		_BumpSpeed("Bump Speed",Range(0,2)) = 1
@@ -53,8 +55,11 @@
 				float4 Ttw2 : TEXCOORD4;
 			};
 
+			sampler2D _MainTex;
+			half4 _MainTex_ST;
+			half4 _MainTex_TexelSize;
+
 			sampler2D _Bump;
-			float4 _Bump_ST;
 			half _BumpSize;
 			half _BumpSpeed;
 
@@ -106,7 +111,12 @@
 				float3 worldBitangent = cross(worldNormal, worldTangent) * v.tangent.w;
 
 				o.pos = mul(UNITY_MATRIX_VP, float4(wavePos, 1));
-				o.uv = TRANSFORM_TEX(v.texcoord, _Bump) * worldNormal.y;
+				o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
+
+				#if UNITY_UV_STARTS_AT_TOP
+					if (_MainTex_TexelSize.y < 0)
+						o.uv.y = 1.0 - o.uv.y;
+				#endif
 
 				o.Ttw0 = float4(worldTangent.x, worldBitangent.x, worldNormal.x, worldPos.x);
 				o.Ttw1 = float4(worldTangent.y, worldBitangent.y, worldNormal.y, worldPos.y);
@@ -135,7 +145,11 @@
 				float3 reflDir = normalize(reflect(-worldViewDir, bump));
 				half3 reflColor = dot(reflDir, bump) * fixed3(1, 1, 1);
 
-				return fixed4(reflColor, 1);
+				fixed3 diffuse = _LightColor0 * tex2D(_MainTex, i.uv).rgb * saturate(dot(bump, worldLightDir));
+
+				fixed3 color = reflColor + tex2D(_MainTex, i.uv).rgb;
+
+				return fixed4(diffuse, 1);
 			}
 
 			ENDCG
