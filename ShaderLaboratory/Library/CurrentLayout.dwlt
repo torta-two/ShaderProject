@@ -107,10 +107,10 @@ MonoBehaviour:
     y: 30
     width: 1536
     height: 731
-  m_MinSize: {x: 713, y: 492}
+  m_MinSize: {x: 613, y: 492}
   m_MaxSize: {x: 18008, y: 14042}
   vertical: 0
-  controlID: 11
+  controlID: 71
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -131,7 +131,7 @@ MonoBehaviour:
     y: 0
     width: 1025
     height: 731
-  m_MinSize: {x: 202, y: 321}
+  m_MinSize: {x: 102, y: 221}
   m_MaxSize: {x: 4002, y: 8021}
   vertical: 1
   controlID: 12
@@ -153,16 +153,16 @@ MonoBehaviour:
     y: 0
     width: 1025
     height: 610
-  m_MinSize: {x: 202, y: 221}
+  m_MinSize: {x: 102, y: 121}
   m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 14}
+  m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 14}
   - {fileID: 13}
   - {fileID: 15}
   - {fileID: 16}
-  m_Selected: 0
-  m_LastSelected: 1
+  m_Selected: 1
+  m_LastSelected: 0
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -336,7 +336,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 0
+    m_EnableMouseInput: 1
     m_EnableSliderZoom: 0
     m_UniformScale: 1
     m_UpDirection: 1
@@ -394,15 +394,15 @@ MonoBehaviour:
     height: 589
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 1
-  lastFramingTime: 15842.509558299998
+  lastFramingTime: 3106.0508901
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -59.09195, y: -91.38768, z: 3.4222617}
+    m_Target: {x: 3.55851, y: -6.2023244, z: 9.466446}
     speed: 2
-    m_Value: {x: -59.09195, y: -91.38768, z: 3.4222617}
-  m_RenderMode: 2
+    m_Value: {x: 3.55851, y: -6.2023244, z: 9.466446}
+  m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
     showFog: 1
@@ -425,13 +425,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: 0.35966256, y: -0.574857, z: 0.3103294, w: 0.66624177}
+    m_Target: {x: -0.2714862, y: -0.16161546, z: 0.046300035, w: -0.94764555}
     speed: 2
-    m_Value: {x: 0.35966256, y: -0.574857, z: 0.3103294, w: 0.66624177}
+    m_Value: {x: -0.2714862, y: -0.16161546, z: 0.046300035, w: -0.94764555}
   m_Size:
-    m_Target: 116.304985
+    m_Target: 13.63371
     speed: 2
-    m_Value: 116.304985
+    m_Value: 13.63371
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -623,26 +623,26 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 9efbffff00000000
+    m_ExpandedIDs: 4c88feffba4affff9efbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: Teapot
+      m_OriginalName: Teapot
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: -111872
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 10}
     m_SearchString: 
   m_ExpandedScenes:
-  - 5_SimpleWater
+  - 6_Laser
   m_CurrenRootInstanceID: 0
   m_Locked: 0
   m_CurrentSortingName: TransformSorting
@@ -723,21 +723,21 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000c2280000ca280000d22800000c290000de2a0000e02a0000e22a0000e42a0000e62a0000e82a0000
+    m_ExpandedIDs: 00000000c2280000ca280000d22800000c2900009e290000dc290000de2a0000e02a0000e22a0000e42a0000e62a0000e82a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 3_PixelStyle
-      m_OriginalName: 3_PixelStyle
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 492
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 11}
     m_SearchString: 

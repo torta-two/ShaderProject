@@ -384,6 +384,7 @@
     <None Include="Assets\Shader\3_PixelStyle.shader" />
     <None Include="Assets\Shader\4_WaterEffect.shader" />
     <None Include="Assets\Shader\5_SimpleWater.shader" />
+    <None Include="Assets\Shader\6_Laser.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
