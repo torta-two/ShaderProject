@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scene/6_Laser.unity
+- path: Assets/Scene/5_SimpleWater.unity
   isLoaded: 1
   isActive: 1

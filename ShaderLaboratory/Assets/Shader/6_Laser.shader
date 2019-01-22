@@ -5,15 +5,14 @@
 		_Color ("Color",Color) = (1,1,1,1)
 
 		_RampTex("Ramp Texture", 2D) = "white" {}
-		_RampScale("Ramp Scale", float) = 1
-		_AlphaScale("Alpha Size",float) = 1
+		_RampScale("Ramp Scale", Range(0,1)) = 1
+		_AlphaScale("Alpha Size",Range(0,1)) = 1
 	}
 	SubShader
 	{
 		Tags { "RenderType"="Transparent" 
 			   "Queue" = "Transparent" 
-			   "IgnoreProjector" = "True" 
-			   "DisableBatching" = "True" }
+			   "IgnoreProjector" = "True" }
 
 		Pass
 		{
@@ -64,7 +63,9 @@
 
 				fixed NdotL = dot(worldNormal, worldLightDir);
 				
-				fixed alpha = _AlphaScale * (0.7 - NdotL * 0.7);
+				fixed alpha = _AlphaScale * (0.5 - NdotL * 0.5);
+
+				//alpha = _AlphaScale * (0.5 + NdotL * 0.5);
 
 				fixed diff = 0.5 + NdotL * 0.5;
 
