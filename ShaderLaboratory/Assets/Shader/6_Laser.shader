@@ -2,19 +2,18 @@
 {
 	Properties
 	{
-		_BumpTex("Bump Tex",2D) = "bump" {}
+		_Color ("Color",Color) = (1,1,1,1)
 
 		_RampTex("Ramp Texture", 2D) = "white" {}
-		_RampSize("Ramp Size", float) = 1
+		_RampScale("Ramp Scale", float) = 1
 		_AlphaScale("Alpha Size",float) = 1
-
-		_Color ("Color",Color) = (1,1,1,1)
 	}
 	SubShader
 	{
 		Tags { "RenderType"="Transparent" 
-			   "IgnoreProjector"="True"
-			   "Queue"="Transparent"}
+			   "Queue" = "Transparent" 
+			   "IgnoreProjector" = "True" 
+			   "DisableBatching" = "True" }
 
 		Pass
 		{
@@ -31,54 +30,35 @@
 			{
 				float4 vertex : POSITION;
 				float3 normal : NORMAL;
-				float4 tangent : TANGENT;
-				float2 uv : TEXCOORD0;
 			};
 
 			struct v2f
-			{
-				float2 uv : TEXCOORD0;
-				float4 vertex : SV_POSITION;
-				
-				half4 Ttw0 : TEXCOORD1;
-				half4 Ttw1 : TEXCOORD2;
-				half4 Ttw2 : TEXCOORD3;
+			{				
+				float4 pos : SV_POSITION;
+				float3 worldPos : TEXCOORD0;
+				half3 worldNormal : TEXCOORD1;
 			};
 
-			sampler2D _BumpTex;
-			float4 _BumpTex_ST;
-			sampler2D _RampTex;
-			half _RampSize;
-			half _AlphaScale;
-
 			fixed4 _Color;
+			sampler2D _RampTex;
+			half _RampScale;
+			half _AlphaScale;
 
 			v2f vert (appdata v)
 			{
 				v2f o;
-				o.vertex = UnityObjectToClipPos(v.vertex);
-				half3 worldPos = mul(unity_ObjectToWorld, v.vertex);
-				half3 worldNormal = UnityObjectToWorldNormal(v.normal);
-				half3 worldTangent = UnityObjectToWorldDir(v.tangent.xyz);
-				half3 worldBitangent = cross(worldNormal, worldTangent) * v.tangent.w;
-
-				o.Ttw0 = half4(worldBitangent.x, worldTangent.x, worldNormal.x, worldPos.x);
-				o.Ttw1 = half4(worldBitangent.y, worldTangent.y, worldNormal.y, worldPos.y);
-				o.Ttw2 = half4(worldBitangent.z, worldTangent.z, worldNormal.z, worldPos.z);
-
-				o.uv = TRANSFORM_TEX(v.uv,_BumpTex);
+				o.pos = UnityObjectToClipPos(v.vertex);
+				o.worldPos = mul(unity_ObjectToWorld, v.vertex);
+				o.worldNormal = UnityObjectToWorldNormal(v.normal);
 
 				return o;
 			}
 			
 			fixed4 frag (v2f i) : SV_Target
 			{
-				float3 worldPos = float3(i.Ttw0.w,i.Ttw1.w,i.Ttw2.w);
-				fixed3 worldLightDir = normalize(UnityWorldSpaceLightDir(worldPos));
+				fixed3 worldLightDir = normalize(UnityWorldSpaceLightDir(i.worldPos));
 
-				fixed3 bump = normalize(UnpackNormal(tex2D(_BumpTex, i.uv)));
-
-				fixed3 worldNormal = float3(i.Ttw0.z, i.Ttw1.z, i.Ttw2.z);
+				fixed3 worldNormal = normalize(i.worldNormal);
 
 				fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyx;
 
@@ -88,12 +68,13 @@
 
 				fixed diff = 0.5 + NdotL * 0.5;
 
-				fixed3 diffuse1 = _LightColor0 * tex2D(_RampTex,fixed2(diff,diff)).rgb; 
-				fixed3 diffuse2 = _LightColor0 * diff;
+				fixed3 diffuse_Ramp = _LightColor0 * tex2D(_RampTex,fixed2(diff,diff)).rgb; 
+				
+				fixed3 diffuse = _LightColor0 * diff;
 
-				fixed3 diffColor = _Color * tex2D(_RampTex, fixed2(diff, diff)).rgb;
+				fixed3 finalColor = lerp(diffuse, diffuse_Ramp, _RampScale) + ambient;
 
-				return fixed4(ambient + lerp(diffuse2,diffuse1,_RampSize) + diffColor,alpha);
+				return fixed4(_Color.rgb * finalColor,alpha);
 			}
 			ENDCG
 		}
