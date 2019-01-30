@@ -34,6 +34,7 @@ Material:
     - _AlphaScale: 0.6
     - _Ax: 0.15
     - _Ay: 0.2
+    - _BumpScale: 1
     - _BumpSize: 1
     - _BumpSpeed: 0.01
     - _DistanceFactor: 30
@@ -46,10 +47,11 @@ Material:
     - _Sx: 0.2
     - _Sy: 0.3
     - _curWaveDis: 0.31
-    - _timeFactor: -3
+    - _timeFactor: 3
     - _totalFactor: 0.3
-    - _w: 0.94
-    - _waveWidth: 0.05
+    - _w: 100
+    - _waveWidth: 0.12
+    - _waveWidth2: 1
     m_Colors:
     - _A: {r: 0.1, g: 0.2, b: 0.3, a: 0.4}
     - _Color: {r: 0.64705884, g: 0, b: 0, a: 1}

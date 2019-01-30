@@ -5,20 +5,20 @@
 		_MainTex("Main Tex",2D) = "white"{}		
 
 		_Bump("Bump",2D) = "bump" {}
-		_BumpSize("Bump Size",float) = 1
+		_BumpScale("Bump Scale",float) = 1
 		_BumpSpeed("Bump Speed",Range(0,2)) = 1
 		
 		_ReflectionColor("Reflection Color",Color) = (1,1,1,1)
 
 		_RefractionScale("Refraction Scale",float) = 1	
 
-		_DistanceFactor("Distance Factor",float) = 0
+		_w("_w",float) = 0
+		_waveWidth("_waveWidth",Range(0,1)) = 0
+		_waveWidth2("_waveWidth2",Range(0,1)) = 0
 
-			_w("_w",float) = 0
-			_waveWidth("_waveWidth",float) = 0
-			_timeFactor("_timeFactor",float) = 0
+		_timeFactor("_timeFactor",float) = 0
 
-			//_wavePos("wavePos",vector) = (0,0,0,0)
+		//_wavePos("wavePos",vector) = (0,0,0,0)
 	}
 
 	SubShader
@@ -60,18 +60,18 @@
 
 			sampler2D _Bump;
 			half4 _Bump_ST;
-			half _BumpSize;
+			half _BumpScale;
 			half _BumpSpeed;
 
 			fixed4 _ReflectionColor;
 			half _RefractionScale;
 		
-			float _DistanceFactor;
 			float _totalFactor;
 			float _waveWidth;
 			float _timeFactor;
 			float _w;
 			float4 _wavePos;
+			float _waveWidth2;
 
 			v2f vert(a2v v)
 			{
@@ -86,10 +86,12 @@
 				o.uv.xy = TRANSFORM_TEX(v.texcoord, _MainTex);
 				o.uv.zw = TRANSFORM_TEX(v.texcoord, _Bump);
 
-
 				#if UNITY_UV_STARTS_AT_TOP
 					if (_MainTex_TexelSize.y <= 0.0)
+					{ 
 						o.uv.y = 1.0 - o.uv.y;
+						o.uv.w = 1.0 - o.uv.w;
+					}
 				#endif
 
 				o.Ttw0 = float4(worldTangent.x, worldBitangent.x, worldNormal.x, worldPos.x);
@@ -102,47 +104,40 @@
 			fixed4 frag(v2f i) : SV_Target
 			{
 				float3 worldPos = float3(i.Ttw0.w,i.Ttw1.w,i.Ttw2.w);
-				fixed3 worldNormal = fixed3(i.Ttw0.z, i.Ttw1.z, i.Ttw2.z);
 				fixed3 worldViewDir = normalize(UnityWorldSpaceViewDir(worldPos));
 
 				float2 speed = half2(_BumpSpeed, _BumpSpeed) * _Time.y;
 
 				float2 dv = i.uv.xy - float2(_wavePos.x,_wavePos.y);
 
-				dv = dv * float2(_wavePos.z / _wavePos.w, 1);
+				dv = dv * float2(_wavePos.z / _wavePos.w, 1);//消除scale缩放影响
 
-				float dis = sqrt(dv.x * dv.x + dv.y * dv.y);
+				float distance = sqrt(dv.x * dv.x + dv.y * dv.y);
 
-				float sinFactor = sin(dis * _DistanceFactor + _Time.y * _timeFactor) * 0.1;
+				//float sinFactor = sin(distance + _Time.y * _timeFactor) * 0.1;
 
-				sinFactor = sin(_w * (_timeFactor * _Time.y + dis * _DistanceFactor));
+				float sinFactor = sin(_w * distance - _timeFactor * _Time.y);
 
-				float discardFactor = clamp(_waveWidth - dis , 0, 1);
+				//sinFactor = sin(_w * distance - _waveWidth2);
 
-				float2 dv1 = normalize(dv);
+				float discardFactor = smoothstep(_waveWidth2, 1, _waveWidth - distance);
 
-				float2 off = normalize(dv) * sinFactor * discardFactor;
+				float2 direction = normalize(dv);
 
-				fixed3 bump1 = UnpackNormal(tex2D(_Bump, i.uv.zw + speed + off)).rgb;
-				fixed3 bump2 = UnpackNormal(tex2D(_Bump, i.uv.zw + speed)).rgb;
-				fixed3 bump = normalize(bump1 + bump2);
+				float2 bump_uv_offset = direction * sinFactor * discardFactor;
 
-				bump = bump1;
+				fixed3 bump = UnpackNormal(tex2D(_Bump, i.uv.zw + speed + bump_uv_offset)).rgb;
+				//fixed3 bump = UnpackNormal(tex2D(_Bump, i.uv.zw + speed)).rgb;
 
-				bump.xy *= _BumpSize;
+				bump.xy *= _BumpScale;
 				bump.z = sqrt(1 - saturate(dot(bump.xy, bump.xy)));
 
 				bump = normalize(half3(dot(bump, i.Ttw0.xyz), dot(bump, i.Ttw1.xyz), dot(bump, i.Ttw2.xyz)));
+				
+				float2 mainTex_uv_offset = bump.xy * _MainTex_TexelSize.xy * _RefractionScale;
+				fixed3 refrColor = tex2D(_MainTex, i.uv.xy + mainTex_uv_offset).rgb;
 
-				float3 reflDir = normalize(reflect(-worldViewDir, bump));
-
-				reflDir = normalize(worldViewDir);
-
-				half3 reflColor = dot(reflDir, bump) * _ReflectionColor;
-
-				float2 offset = bump.xy * _MainTex_TexelSize.xy * _RefractionScale;
-
-				fixed3 refrColor = tex2D(_MainTex, i.uv.xy + offset).rgb;
+				half3 reflColor = dot(worldViewDir, bump) * _ReflectionColor;
 
 				return fixed4(reflColor + refrColor, 1);
 			}
