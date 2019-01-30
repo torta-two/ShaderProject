@@ -332,10 +332,24 @@
     <Compile Include="Assets\DCG Shaders\Water Shader\_Resources\WaterFog.cs" />
     <Compile Include="Assets\ImageEffect\Bloom.cs" />
     <Compile Include="Assets\ImageEffect\BrightnessSaturationAndContrast.cs" />
+    <Compile Include="Assets\Model\UnityChan\Scripts\AnimManager.cs" />
+    <Compile Include="Assets\Model\UnityChan\Scripts\AutoBlink.cs" />
+    <Compile Include="Assets\Model\UnityChan\Scripts\AutoBlinkforSD.cs" />
+    <Compile Include="Assets\Model\UnityChan\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Model\UnityChan\Scripts\FaceUpdate.cs" />
+    <Compile Include="Assets\Model\UnityChan\Scripts\IdleChanger.cs" />
+    <Compile Include="Assets\Model\UnityChan\Scripts\IKCtrlRightHand.cs" />
+    <Compile Include="Assets\Model\UnityChan\Scripts\RandomWind.cs" />
+    <Compile Include="Assets\Model\UnityChan\Scripts\RefleshProbe.cs" />
+    <Compile Include="Assets\Model\UnityChan\Scripts\SpringBone.cs" />
+    <Compile Include="Assets\Model\UnityChan\Scripts\SpringCollider.cs" />
+    <Compile Include="Assets\Model\UnityChan\Scripts\SpringManager.cs" />
+    <Compile Include="Assets\Model\UnityChan\Scripts\ThirdPersonCamera.cs" />
+    <Compile Include="Assets\Model\UnityChan\Scripts\UnityChanControlScriptWithRgidBody.cs" />
     <Compile Include="Assets\Scripts\DepthOfField.cs" />
     <Compile Include="Assets\Scripts\PixelStyle.cs" />
     <Compile Include="Assets\Scripts\PostEffectsBase.cs" />
-    <Compile Include="Assets\SimpleWater.cs" />
+    <Compile Include="Assets\Scripts\SimpleWater.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\DCG Shaders\Water Shader\Shaders\Backface.shader" />
@@ -419,6 +433,8 @@
     <None Include="Assets\Shader\5_SimpleWater.shader" />
     <None Include="Assets\Shader\6_Laser.shader" />
     <None Include="Assets\Shader\7_Bubble.shader" />
+    <None Include="Assets\Toon\ToonShader.shader" />
+    <None Include="Assets\Toon\ToonShader_rim.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

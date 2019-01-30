@@ -49,7 +49,7 @@ Material:
     - _timeFactor: -3
     - _totalFactor: 0.3
     - _w: 0.94
-    - _waveWidth: 0.22
+    - _waveWidth: 0.05
     m_Colors:
     - _A: {r: 0.1, g: 0.2, b: 0.3, a: 0.4}
     - _Color: {r: 0.64705884, g: 0, b: 0, a: 1}
