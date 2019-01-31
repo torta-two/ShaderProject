@@ -1,4 +1,4 @@
-﻿Shader "MyShaderTest/6_Laser"
+﻿Shader "MyShaderTest/5_Laser"
 {
 	Properties
 	{

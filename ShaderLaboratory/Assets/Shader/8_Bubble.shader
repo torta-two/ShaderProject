@@ -1,4 +1,4 @@
-﻿Shader "MyShaderTest/7_Bubble" 
+﻿Shader "MyShaderTest/8_Bubble" 
 {
 	Properties
 	{

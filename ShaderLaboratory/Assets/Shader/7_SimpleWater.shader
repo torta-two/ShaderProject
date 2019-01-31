@@ -1,4 +1,4 @@
-﻿Shader "MyShaderTest/5_SimpleWater"
+﻿Shader "MyShaderTest/7_SimpleWater"
 {
 	Properties
 	{
@@ -18,6 +18,7 @@
 
 		_timeFactor("_timeFactor",float) = 0
 
+		_Amplitude("振幅",float) = 1
 		//_wavePos("wavePos",vector) = (0,0,0,0)
 	}
 
@@ -72,6 +73,7 @@
 			float _w;
 			float4 _wavePos;
 			float _waveWidth2;
+			float _Amplitude;
 
 			v2f vert(a2v v)
 			{
@@ -120,11 +122,11 @@
 
 				//sinFactor = sin(_w * distance - _waveWidth2);
 
-				float discardFactor = smoothstep(_waveWidth2, 1, _waveWidth - distance);
+				float amplitude = _Amplitude * smoothstep(0, 1, _waveWidth - distance);
 
 				float2 direction = normalize(dv);
 
-				float2 bump_uv_offset = direction * sinFactor * discardFactor;
+				float2 bump_uv_offset = direction * sinFactor * amplitude;
 
 				fixed3 bump = UnpackNormal(tex2D(_Bump, i.uv.zw + speed + bump_uv_offset)).rgb;
 				//fixed3 bump = UnpackNormal(tex2D(_Bump, i.uv.zw + speed)).rgb;
