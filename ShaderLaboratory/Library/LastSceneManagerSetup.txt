@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scene/6_ColorDispersion.unity
+- path: Assets/Scene/7_SimpleWater.unity
   isLoaded: 1
   isActive: 1

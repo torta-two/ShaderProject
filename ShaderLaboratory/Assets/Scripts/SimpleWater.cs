@@ -15,14 +15,27 @@ public class SimpleWater : MonoBehaviour
     {
         material = GetComponent<MeshRenderer>().material;
 
+
         if (material == null)
             Debug.Log("null");
 
         panelWidth = transform.localScale.x * 5;
         panelHeight = transform.localScale.z * 5;
 
+        material.SetFloat("_waveWidth", 0);
+        material.SetFloat("_waveWidth2", 0);
+
+        material.SetVector("_wavePos", new Vector4(0, 0, 0, 0));
+
         //material.SetFloat("_PanelWidth", panelWidth);
         //material.SetFloat("_PanelHeight", panelHeight);
+    }
+
+    private void PassWaveWidth(float time)
+    {
+        material.SetFloat("_waveWidth", 0);
+
+        float t = Time.time;
     }
 
     private void OnCollisionEnter(Collision collision)
