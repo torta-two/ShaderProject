@@ -31,11 +31,14 @@ public class SimpleWater : MonoBehaviour
         //material.SetFloat("_PanelHeight", panelHeight);
     }
 
-    private void PassWaveWidth(float time)
+    private IEnumerator  PassWaveWidth(float currentTime,float durationTime)
     {
+        float t = Time.time;
+
         material.SetFloat("_waveWidth", 0);
 
-        float t = Time.time;
+        yield return new WaitForSeconds(0.1f);
+        
     }
 
     private void OnCollisionEnter(Collision collision)
