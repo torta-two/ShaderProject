@@ -39,20 +39,23 @@ Material:
     - _BumpSize: 1
     - _BumpSpeed: 0.01
     - _DistanceFactor: 30
+    - _EndWaveWidth: 0
+    - _Frequency: 120
     - _Lx: 1.1
     - _Ly: 0.9
     - _Q: 0.15
     - _ReflectionAmount: 0.75
     - _RefractionScale: 30
     - _RefractionSize: 150
+    - _StartWaveWidth: 0
     - _Sx: 0.2
     - _Sy: 0.3
     - _curWaveDis: 0.31
     - _timeFactor: 3
     - _totalFactor: 0.3
     - _w: 100
-    - _waveWidth: 0.12
-    - _waveWidth2: 0
+    - _waveWidth: 0.5
+    - _waveWidth2: 0.5
     m_Colors:
     - _A: {r: 0.1, g: 0.2, b: 0.3, a: 0.4}
     - _Color: {r: 0.64705884, g: 0, b: 0, a: 1}

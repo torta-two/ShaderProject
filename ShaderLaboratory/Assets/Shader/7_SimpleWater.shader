@@ -12,13 +12,11 @@
 
 		_RefractionScale("Refraction Scale",float) = 1	
 
-		_w("W",float) = 0
-		_waveWidth("WaveWidth",Range(0,1)) = 0
-		_waveWidth2("WaveWidth2",Range(0,1)) = 0
+		_Frequency("Frequency",float) = 0
+		_Amplitude("Amplitude",float) = 1
 
 		_timeFactor("TimeFactor",float) = 0
-
-		_Amplitude("Amplitude",float) = 1
+		
 	}
 
 	SubShader
@@ -67,11 +65,13 @@
 			half _RefractionScale;
 		
 			float _totalFactor;
-			float _waveWidth;
+			float _StartWaveWidth;
+			float _EndWaveWidth;
+
 			float _timeFactor;
-			float _w;
+			float _Frequency;
 			float4 _wavePos;
-			float _waveWidth2;
+			
 			float _Amplitude;
 
 			v2f vert(a2v v)
@@ -117,11 +117,11 @@
 
 				//float sinFactor = sin(distance + _Time.y * _timeFactor) * 0.1;
 
-				float sinFactor = sin(_w * distance - _timeFactor * _Time.y);
+				float sinFactor = sin(_Frequency * distance - _timeFactor * _Time.y);
 
 				//sinFactor = sin(_w * distance - _waveWidth2);
 
-				float amplitude = _Amplitude * smoothstep(0, 1, _waveWidth - distance) * smoothstep(_waveWidth2,0, _waveWidth - distance);
+				float amplitude = _Amplitude * smoothstep(0, _StartWaveWidth , _StartWaveWidth - distance) * smoothstep(0, _EndWaveWidth,distance - _EndWaveWidth);
 
 				float2 direction = normalize(dv);
 
