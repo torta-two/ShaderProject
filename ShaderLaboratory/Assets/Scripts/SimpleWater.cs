@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SimpleWater : MonoBehaviour
@@ -11,7 +10,6 @@ public class SimpleWater : MonoBehaviour
     private float panelWidth;
     private float panelHeight;
 
-    private float currentTime = -1;
     private bool isCollision = false;
 
     private void Awake()
@@ -25,10 +23,9 @@ public class SimpleWater : MonoBehaviour
         panelWidth = transform.localScale.x * 5;
         panelHeight = transform.localScale.z * 5;
 
+        material.SetVector("_wavePos", new Vector4(0, 0, 0, 0));
         material.SetFloat("_StartWaveWidth", 0);
         material.SetFloat("_EndWaveWidth", 0);
-
-        material.SetVector("_wavePos", new Vector4(0, 0, 0, 0));
     } 
 
     private void OnCollisionEnter(Collision collision)
@@ -52,11 +49,6 @@ public class SimpleWater : MonoBehaviour
         material.SetVector("_wavePos", new Vector4(1 - pos.x, 1 - pos.z, panelWidth, panelHeight));
     }
 
-    private void StartWave(int index,Vector4 wavePos)
-    {
-
-    }
-
     private IEnumerator ChangeWaveWidth(string name, float time, bool isStartWaveWidth)
     {
         for (int i = 0; i < time * 50; i++)
@@ -69,5 +61,7 @@ public class SimpleWater : MonoBehaviour
             }
             yield return new WaitForSeconds(0.02f);
         }
+
+        StopCoroutine(ChangeWaveWidth(name, time, isStartWaveWidth));
     }
 }
