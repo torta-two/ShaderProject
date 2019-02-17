@@ -15,8 +15,6 @@
 
 		_Frequency("Frequency",float) = 0
 		_Amplitude("Amplitude",float) = 1
-
-		_TimeFactor("TimeFactor",float) = 0
 	}
 
 	SubShader
@@ -65,7 +63,6 @@
 				fixed4 _ReflectionColor;
 				half _RefractionScale;
 
-				float _TimeFactor;
 				float _Frequency;
 				float _Amplitude;
 
@@ -88,7 +85,7 @@
 					o.uv.zw = TRANSFORM_TEX(v.texcoord, _Bump);
 
 					#if UNITY_UV_STARTS_AT_TOP
-						if (_MainTex_TexelSize.y <= 0.0)
+						if (_MainTex_TexelSize.y < 0.0)
 						{
 							o.uv.y = 1.0 - o.uv.y;
 							o.uv.w = 1.0 - o.uv.w;
@@ -111,7 +108,7 @@
 					dv = dv * float2(_wavePos.z / _wavePos.w, 1);//消除scale缩放影响
 
 					float distance = sqrt(dv.x * dv.x + dv.y * dv.y);
-					float sinFactor = sin(_Frequency * distance - _Time.y * _TimeFactor);
+					float sinFactor = sin(_Frequency * distance - _Time.y);
 					float amplitude = _Amplitude * smoothstep(0, _StartWaveWidth, _StartWaveWidth - distance.x) * smoothstep(0, _EndWaveWidth, distance.x - _EndWaveWidth);
 					float2 direction = normalize(dv);
 					float2 wave_offset = normalize(dv) * sinFactor * amplitude;

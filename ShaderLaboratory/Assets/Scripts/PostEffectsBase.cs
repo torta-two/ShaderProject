@@ -34,15 +34,11 @@ public class PostEffectsBase : MonoBehaviour
     protected Material CheckShaderAndMaterial(Shader shader, Material material)
     {
         if (shader == null)
-        {
             return null;
-        }
+
 
         if (shader.isSupported && material != null && material.shader == shader)
-        {
-            
             return material;
-        }
         else
         {
             material = new Material(shader)

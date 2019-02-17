@@ -358,6 +358,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0c4b9d279f8f6d41895d8c846799b1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waveWidth: 0.1
+  timeMince: 0.02
+  waveDissolveRatioTime: 0.5
 --- !u!1001 &2080560669
 Prefab:
   m_ObjectHideFlags: 0

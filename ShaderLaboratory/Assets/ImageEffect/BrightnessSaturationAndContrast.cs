@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [ExecuteInEditMode]
-public class BrightnessSaturationAndContrast : PostEffectsBase {
-
+public class BrightnessSaturationAndContrast : PostEffectsBase
+{
     public Shader briSatConShader;
     private Material briSatConMaterial;
-    public Material material
+    public Material BriSatConMaterial
     {
         get
         {
@@ -27,13 +25,13 @@ public class BrightnessSaturationAndContrast : PostEffectsBase {
 
     void OnRenderImage(RenderTexture src, RenderTexture dest)
     {
-        if(material != null)
+        if(BriSatConMaterial != null)
         {
-            material.SetFloat("_Brightness", brightness);
-            material.SetFloat("_Saturation", saturation);
-            material.SetFloat("_Contrast", contrast);
+            BriSatConMaterial.SetFloat("_Brightness", brightness);
+            BriSatConMaterial.SetFloat("_Saturation", saturation);
+            BriSatConMaterial.SetFloat("_Contrast", contrast);
 
-            Graphics.Blit(src, dest, material);
+            Graphics.Blit(src, dest, BriSatConMaterial);
         }
         else
         {

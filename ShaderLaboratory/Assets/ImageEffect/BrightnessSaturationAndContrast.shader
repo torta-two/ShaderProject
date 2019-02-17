@@ -49,9 +49,9 @@
 
 				fixed luminance = 0.2125 * renderTex.r + 0.7154 *renderTex.g + 0.0721*renderTex.b;
 				fixed3 luminanceColor = fixed3(luminance, luminance, luminance);
-				finalColor = lerp(luminanceColor, finalColor, _Saturation);//饱和度:将颜色值通过特定数值转化为亮度，再进行混合
+				finalColor = lerp(luminanceColor, finalColor, _Saturation);//饱和度:将颜色值转化，再进行插值
 
-				fixed3 avgColor = fixed3(0.5, 0.5, 0.5);//对比度：与灰色混合
+				fixed3 avgColor = fixed3(0.5, 0.5, 0.5);//对比度：与灰色插值
 				finalColor = lerp(avgColor, finalColor, _Contrast);
 			
 				return fixed4(finalColor, renderTex.a);
